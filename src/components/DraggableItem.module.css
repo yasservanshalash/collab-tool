@@ -1,0 +1,12 @@
+.item {
+    opacity: 1;
+    background-color: lightblue;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    cursor: move;
+    transition: opacity 0.2s ease;
+  }
+  
+  .item.isDragging {
+    opacity: 0.5;
+  }

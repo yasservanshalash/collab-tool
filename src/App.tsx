@@ -1,24 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from './redux/store';
+
+import DroppableContainer from './components/DroppableContainer';
+import { sortableContainersActions } from './redux/slices/sortableContainersSlice';
 
 function App() {
+  const containers = useSelector((state: RootState) => state.sortableContainers);
+  const dispatch = useDispatch();
+
+  const handleAddContainer = () => {
+    dispatch(sortableContainersActions.createContainer());
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+        {containers.map((container) => (
+          <DroppableContainer key={container.id} id={container.id} items={container.items} />
+        ))}
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+        <button onClick={handleAddContainer}>Add Container</button>
+      </div>
     </div>
   );
 }
